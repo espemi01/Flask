@@ -18,9 +18,9 @@ def select():
               <form method='get'>
                   <hr>
                   <h4><label for="size">Select the size of your password</label></h4>
-                  <p>Smallest: (1-5)</p><input id="size" type="range" name="small" min=1 max=5 value=4 />
-                  <p>Largest: (5-10)</p><input id="size" type="range" name="large" min=5 max=10 value=8 />
-                  <p>Total Length: (20 - 40)</p><input id="size" type="range" name="max" min=20 max=40 value=30 />
+                  <p>Smallest: (4-7)</p><input id="size" type="range" name="small" min=1 max=5 value=4 />
+                  <p>Largest: (7-10)</p><input id="size" type="range" name="large" min=5 max=10 value=8 />
+                  <p>Total Length: (16 - 40)</p><input id="size" type="range" name="max" min=16 max=40 value=30 />
                   <hr>
                   <h4><label for="params">Select the parameters for your passwords</label></h4>
                   <p>Capitalize a random word: </p><input id="params" type="checkbox" name="cap" />
@@ -105,7 +105,7 @@ def getWord(Low, High, Max, tLen, words):
     go = False
     
     while go is False:
-        index = random.randint(0,5012)
+        index = random.randint(0,5000)
         word = words[index]
         
         if len(word) < High:
