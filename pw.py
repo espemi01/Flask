@@ -43,73 +43,64 @@ def getDB():
         
     return words
 
-def output(w1,w2,w3,w4):
-    pw = w1 + ' ' + w2 + ' ' + w3 + ' ' + w4
-        
-    return '''
-    <html>
-      <body>
-        <h1>Password Generator</h1>
-        <p>1st Word: {0}</p>
-        <p>2nd Word: {1}</p>
-        <p>3rd Word: {2}</p>
-        <p>4th Word: {3}</p>
-        <p>Your Full Password: {4}</p>
-      </body>
-    </html>
-    '''.format(w1,w2,w3,w4,pw)
-
 def send(Low, High, Max):
     Low = int(Low)
     High = int(High)
     Max = int(Max)
-    words = getDB()
-    pw = []
     
-    tLen = 0
-    
-    w1 = getWord(Low, High, Max, tLen, words)
-    w2 = getWord(Low, High, Max, tLen, words)
-    w3 = getWord(Low, High, Max, tLen, words)
-    w4 = getWord(Low, High, Max, tLen, words)
-    
-    if 'first' in request.args:
-        c1 = request.args['first']
-        if c1 == 'on':
-            w1 = swap(w1)
-    if 'second' in request.args:
-        c2 = request.args['second']
-        if c2 == 'on':
-            w2 = swap(w2)
-    if 'third' in request.args:
-        c3 = request.args['third']
-        if c3 == 'on':
-            w3 = swap(w3)
-    if 'fourth' in request.args:
-        c4 = request.args['fourth']
-        if c4 == 'on':
-            w4 = swap(w4)
-    
-    wl = [w1,w2,w3,w4]
-    
-    if 'cap' in request.args:
-        s = request.args['cap']
-        if s == 'on':
-            word = random.choice(wl)
-            Word = caps(word)
-            if word == w1:
-                w1 = Word
-            elif word == w2:
-                w2 = Word
-            elif word == w3:
-                w3 = Word
-            elif word == w4:
-                w4 = Word
-            
-            
-            
-    return output(w1,w2,w3,w4)
+    return makePWL(Low, High, Max)
 
+def makePWL(Low, High, Max):
+    words = getDB()
+    PWL = []
+    
+    for i in range(0,10):
+        tLen = 0
+        w1 = getWord(Low, High, Max, tLen, words)
+        w2 = getWord(Low, High, Max, tLen, words)
+        w3 = getWord(Low, High, Max, tLen, words)
+        w4 = getWord(Low, High, Max, tLen, words)
+        
+        if 'first' in request.args:
+            c1 = request.args['first']
+            if c1 == 'on':
+                w1 = swap(w1)
+        if 'second' in request.args:
+            c2 = request.args['second']
+            if c2 == 'on':
+                w2 = swap(w2)
+        if 'third' in request.args:
+            c3 = request.args['third']
+            if c3 == 'on':
+                w3 = swap(w3)
+        if 'fourth' in request.args:
+            c4 = request.args['fourth']
+            if c4 == 'on':
+                w4 = swap(w4)
+
+        wl = [w1,w2,w3,w4]
+
+        if 'cap' in request.args:
+            s = request.args['cap']
+            if s == 'on':
+                word = random.choice(wl)
+                Word = caps(word)
+                if word == w1:
+                    w1 = Word
+                elif word == w2:
+                    w2 = Word
+                elif word == w3:
+                    w3 = Word
+                elif word == w4:
+                    w4 = Word
+        
+        pw = w1 + ' ' + w2 + ' ' + w3 + ' ' + w4
+#        if len(PWL) != 0:
+#            if pw != PWL[len(PWM)-1]:
+        PWL.append(pw)
+                
+    return output(PWL)
+    
 def getWord(Low, High, Max, tLen, words):
     go = False
     
@@ -147,7 +138,7 @@ def swap(word):
                 
     return result
 
-def sendPW(a,b,c,d,e,f,g,h,i,j):
+def output(PWL):
     
     return '''
     <html>
@@ -155,17 +146,17 @@ def sendPW(a,b,c,d,e,f,g,h,i,j):
     </head>
         <body>
             <h1>Password Generator</h1>
-            <p>1: {a} </p>
-            <p>2: {b} </p>
-            <p>3: {c} </p>
-            <p>4: {d} </p>
-            <p>5: {e} </p>
-            <p>6: {f} </p>
-            <p>7: {g} </p>
-            <p>8: {h} </p>
-            <p>9: {i} </p>
-            <p>10: {j} </p>
-    '''
+            <p>1:  {0} </p>
+            <p>2:  {1} </p>
+            <p>3:  {2} </p>
+            <p>4:  {3} </p>
+            <p>5:  {4} </p>
+            <p>6:  {5} </p>
+            <p>7:  {6} </p>
+            <p>8:  {7} </p>
+            <p>9:  {8} </p>
+            <p>10: {9} </p>
+    '''.format(PWL[0],PWL[1],PWL[2],PWL[3],PWL[4],PWL[5],PWL[6],PWL[7],PWL[8],PWL[9])
 
 if __name__ == '__main__':
    app.run()
